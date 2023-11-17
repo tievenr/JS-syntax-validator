@@ -3,36 +3,40 @@ from os import system
 
 tokens = (
     'IDENTIFIER',
+    'NUMBER',
+    'LPAREN',
+    'RPAREN',
     'LBRACE',
     'RBRACE',
-    'COLON',
+    'SEMICOLON',
+    'CLASS',
     'ASSIGN',
+    'CONSTRUCTOR',
     'COMMA',
-    'DQUOTE',
-    'NUMBER',
     'STRING',
-    'KEYWORD'
-
+    'PERIOD'
 )
 t_STRING = r'\"([^\\\n]|(\\.))*?\"'
 t_NUMBER = r'\d+(\.\d+)?'
 t_IDENTIFIER = r'[a-zA-Z_][a-zA-Z0-9_]*'
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
 t_LBRACE = r'\{'
 t_RBRACE = r'\}'
-t_COLON = r':'
-t_COMMA = r','
-t_DQUOTE = r'"'
-t_ASSIGN=r'='
+t_SEMICOLON = r'\;'
+t_ASSIGN = r'\='
+t_COMMA = r'\,'
+t_PERIOD=r'\.'
 
-t_ignore = ' \t'
+def t_CONSTRUCTOR(t):
+    r'constructor'
+    return t
 
-def t_KEYWORD(t):
-    r'\b(var|const|let)\b'
-    return t 
+def t_CLASS(t):
+    r'class'
+    return t
 
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
+t_ignore = ' \t\n'
 
 def t_error(t):
     print(f"Illegal character {t.value[0]}")
@@ -40,10 +44,12 @@ def t_error(t):
 
 lexer = lex.lex()
 
-input_text = '''let x={
-    name: "John",
-    age: 30,
-    city: "New York"
+input_text = '''
+class Person {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
 }
 '''
 

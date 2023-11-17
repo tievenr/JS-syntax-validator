@@ -110,6 +110,7 @@ while True:
     if not s: continue
     result = parser.parse(s)
     if result is None:
-        print("Error")
+        print("\033[91mThis isn't valid syntax\033[0m")  
     else:
-        print("Valid statement")
+        print("\033[93mValid statement\033[0m")  
+

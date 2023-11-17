@@ -40,11 +40,11 @@ while True:
     result = parser.parse(s)
     
     if result is None:
-        print("Error")
+        print("\033[91mThis isn't valid syntax\033[0m")  
     else:
-        print("Valid statement")
+        print("\033[93mValid statement\033[0m")  
 
+
+# Perform the clear and print statements after the loop exits
 os.system('clear')
 print("\033[95mHappy\033[0m \033[94mparsing\033[0m \033[97m:-)\033[0m")
-
-
