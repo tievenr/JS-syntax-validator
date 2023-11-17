@@ -1,0 +1,170 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    DQUOTE
+
+Grammar
+
+Rule 0     S' -> object
+Rule 1     object -> KEYWORD IDENTIFIER ASSIGN LBRACE instances RBRACE
+Rule 2     instances -> instance
+Rule 3     instances -> instance COMMA instances
+Rule 4     instance -> IDENTIFIER COLON value
+Rule 5     value -> STRING
+Rule 6     value -> NUMBER
+
+Terminals, with rules where they appear
+
+ASSIGN               : 1
+COLON                : 4
+COMMA                : 3
+DQUOTE               : 
+IDENTIFIER           : 1 4
+KEYWORD              : 1
+LBRACE               : 1
+NUMBER               : 6
+RBRACE               : 1
+STRING               : 5
+error                : 
+
+Nonterminals, with rules where they appear
+
+instance             : 2 3
+instances            : 1 3
+object               : 0
+value                : 4
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . object
+    (1) object -> . KEYWORD IDENTIFIER ASSIGN LBRACE instances RBRACE
+
+    KEYWORD         shift and go to state 2
+
+    object                         shift and go to state 1
+
+state 1
+
+    (0) S' -> object .
+
+
+
+state 2
+
+    (1) object -> KEYWORD . IDENTIFIER ASSIGN LBRACE instances RBRACE
+
+    IDENTIFIER      shift and go to state 3
+
+
+state 3
+
+    (1) object -> KEYWORD IDENTIFIER . ASSIGN LBRACE instances RBRACE
+
+    ASSIGN          shift and go to state 4
+
+
+state 4
+
+    (1) object -> KEYWORD IDENTIFIER ASSIGN . LBRACE instances RBRACE
+
+    LBRACE          shift and go to state 5
+
+
+state 5
+
+    (1) object -> KEYWORD IDENTIFIER ASSIGN LBRACE . instances RBRACE
+    (2) instances -> . instance
+    (3) instances -> . instance COMMA instances
+    (4) instance -> . IDENTIFIER COLON value
+
+    IDENTIFIER      shift and go to state 6
+
+    instances                      shift and go to state 7
+    instance                       shift and go to state 8
+
+state 6
+
+    (4) instance -> IDENTIFIER . COLON value
+
+    COLON           shift and go to state 9
+
+
+state 7
+
+    (1) object -> KEYWORD IDENTIFIER ASSIGN LBRACE instances . RBRACE
+
+    RBRACE          shift and go to state 10
+
+
+state 8
+
+    (2) instances -> instance .
+    (3) instances -> instance . COMMA instances
+
+    RBRACE          reduce using rule 2 (instances -> instance .)
+    COMMA           shift and go to state 11
+
+
+state 9
+
+    (4) instance -> IDENTIFIER COLON . value
+    (5) value -> . STRING
+    (6) value -> . NUMBER
+
+    STRING          shift and go to state 13
+    NUMBER          shift and go to state 14
+
+    value                          shift and go to state 12
+
+state 10
+
+    (1) object -> KEYWORD IDENTIFIER ASSIGN LBRACE instances RBRACE .
+
+    $end            reduce using rule 1 (object -> KEYWORD IDENTIFIER ASSIGN LBRACE instances RBRACE .)
+
+
+state 11
+
+    (3) instances -> instance COMMA . instances
+    (2) instances -> . instance
+    (3) instances -> . instance COMMA instances
+    (4) instance -> . IDENTIFIER COLON value
+
+    IDENTIFIER      shift and go to state 6
+
+    instance                       shift and go to state 8
+    instances                      shift and go to state 15
+
+state 12
+
+    (4) instance -> IDENTIFIER COLON value .
+
+    COMMA           reduce using rule 4 (instance -> IDENTIFIER COLON value .)
+    RBRACE          reduce using rule 4 (instance -> IDENTIFIER COLON value .)
+
+
+state 13
+
+    (5) value -> STRING .
+
+    COMMA           reduce using rule 5 (value -> STRING .)
+    RBRACE          reduce using rule 5 (value -> STRING .)
+
+
+state 14
+
+    (6) value -> NUMBER .
+
+    COMMA           reduce using rule 6 (value -> NUMBER .)
+    RBRACE          reduce using rule 6 (value -> NUMBER .)
+
+
+state 15
+
+    (3) instances -> instance COMMA instances .
+
+    RBRACE          reduce using rule 3 (instances -> instance COMMA instances .)
+

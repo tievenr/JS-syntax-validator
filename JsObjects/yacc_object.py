@@ -1,18 +1,28 @@
 import os 
 import ply.yacc as yacc
-from lexer_var import tokens
+from lexer_object import tokens
 
-def p_variables(p):
-    '''
-    variables : KEYWORD IDENTIFIER ASSIGN STRING SEMICOLON 
-              | KEYWORD IDENTIFIER ASSIGN NUMBER SEMICOLON
-              | KEYWORD IDENTIFIER SEMICOLON
-    '''
-    if len(p) == 6 :
-        p[0] = f'{p[1]} {p[2]} = {p[4]};'
-    else :
-        p[0] = f'{p[1]} {p[2]};'
-        
+def p_object(p):
+    'object : KEYWORD IDENTIFIER ASSIGN LBRACE instances RBRACE'
+    p[0] = p[1] + p[2] + '=' + '{' + p[4] + '}'
+
+def p_instances(p):
+    '''instances : instance
+             | instance COMMA instances '''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = [p[1]] + p[3]
+
+def p_instance(p):
+    'instance :  IDENTIFIER COLON value'
+    p[0] = p[1]+':'+p[3]
+
+
+def p_value(p):
+    '''value : STRING
+             | NUMBER'''
+    p[0] = p[1]
 def p_error(p):
     if p:
         error_position = p.lexpos
@@ -46,5 +56,6 @@ while True:
 
 os.system('clear')
 print("\033[95mHappy\033[0m \033[94mparsing\033[0m \033[97m:-)\033[0m")
+
 
 
