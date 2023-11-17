@@ -10,9 +10,13 @@ def p_class(p):
 def p_constructor(p):
     '''
     constructor : CONSTRUCTOR LPAREN params RPAREN LBRACE statements RBRACE
+                | CONSTRUCTOR LPAREN RPAREN LBRACE statements RBRACE
     '''
-    p[0] = f'constructor {p[3]} ' + '{' + p[6] + '}'
-
+    if len(p)==8:
+        p[0]= p[1]+ '('+ p[3]+ ')' +'{'+ p[6]+'}' 
+    else:
+        p[0]=p[1]+ '('+')'+ '{'+ p[5]+'}'
+        
 def p_params(p):
     '''
     params : param

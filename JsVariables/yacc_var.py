@@ -28,11 +28,13 @@ parser = yacc.yacc()
 while True:
     try:
         s = input('calc > ')
+        print(s)
+        if s.strip() == 'exit':
+            break
     except EOFError:
         break
     
-    if s.lower() == 'exit':
-        break
+    
     
     if not s: 
         continue
@@ -45,6 +47,5 @@ while True:
         print("\033[93mValid statement\033[0m")  
 
 
-# Perform the clear and print statements after the loop exits
 os.system('clear')
 print("\033[95mHappy\033[0m \033[94mparsing\033[0m \033[97m:-)\033[0m")

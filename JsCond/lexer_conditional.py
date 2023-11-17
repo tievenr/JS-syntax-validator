@@ -78,7 +78,7 @@ if(a >= 10){
 else
 {
     a += 10;
-    console.log('You suck')
+    console.log('Hello maam')
 }
 '''
 
