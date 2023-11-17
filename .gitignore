@@ -1,3 +1,4 @@
 __pycache__/
 requirements.txt
 parsetab.py
+env/
