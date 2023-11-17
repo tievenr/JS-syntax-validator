@@ -1,3 +1,4 @@
+import os 
 import ply.yacc as yacc
 from lexer_func import tokens
 def p_function(p):
@@ -105,12 +106,24 @@ parser = yacc.yacc()
 while True:
     try:
         s = input('calc > ')
+        print(s)
+        if s.strip() == 'exit':
+            break
     except EOFError:
         break
-    if not s: continue
+    
+    
+    
+    if not s: 
+        continue
+    
     result = parser.parse(s)
+    
     if result is None:
         print("\033[91mThis isn't valid syntax\033[0m")  
     else:
         print("\033[93mValid statement\033[0m")  
 
+
+os.system('clear')
+print("\033[95mHappy\033[0m \033[94mparsing\033[0m \033[97m:-)\033[0m")
