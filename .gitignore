@@ -1,6 +1,5 @@
 __pycache__/
 requirements.txt
-parsetab.py
 env/
 parser.out 
 
