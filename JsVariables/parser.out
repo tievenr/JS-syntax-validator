@@ -1,0 +1,104 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> variables
+Rule 1     variables -> KEYWORD IDENTIFIER ASSIGN STRING SEMICOLON
+Rule 2     variables -> KEYWORD IDENTIFIER ASSIGN NUMBER SEMICOLON
+Rule 3     variables -> KEYWORD IDENTIFIER SEMICOLON
+
+Terminals, with rules where they appear
+
+ASSIGN               : 1 2
+IDENTIFIER           : 1 2 3
+KEYWORD              : 1 2 3
+NUMBER               : 2
+SEMICOLON            : 1 2 3
+STRING               : 1
+error                : 
+
+Nonterminals, with rules where they appear
+
+variables            : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . variables
+    (1) variables -> . KEYWORD IDENTIFIER ASSIGN STRING SEMICOLON
+    (2) variables -> . KEYWORD IDENTIFIER ASSIGN NUMBER SEMICOLON
+    (3) variables -> . KEYWORD IDENTIFIER SEMICOLON
+
+    KEYWORD         shift and go to state 2
+
+    variables                      shift and go to state 1
+
+state 1
+
+    (0) S' -> variables .
+
+
+
+state 2
+
+    (1) variables -> KEYWORD . IDENTIFIER ASSIGN STRING SEMICOLON
+    (2) variables -> KEYWORD . IDENTIFIER ASSIGN NUMBER SEMICOLON
+    (3) variables -> KEYWORD . IDENTIFIER SEMICOLON
+
+    IDENTIFIER      shift and go to state 3
+
+
+state 3
+
+    (1) variables -> KEYWORD IDENTIFIER . ASSIGN STRING SEMICOLON
+    (2) variables -> KEYWORD IDENTIFIER . ASSIGN NUMBER SEMICOLON
+    (3) variables -> KEYWORD IDENTIFIER . SEMICOLON
+
+    ASSIGN          shift and go to state 4
+    SEMICOLON       shift and go to state 5
+
+
+state 4
+
+    (1) variables -> KEYWORD IDENTIFIER ASSIGN . STRING SEMICOLON
+    (2) variables -> KEYWORD IDENTIFIER ASSIGN . NUMBER SEMICOLON
+
+    STRING          shift and go to state 6
+    NUMBER          shift and go to state 7
+
+
+state 5
+
+    (3) variables -> KEYWORD IDENTIFIER SEMICOLON .
+
+    $end            reduce using rule 3 (variables -> KEYWORD IDENTIFIER SEMICOLON .)
+
+
+state 6
+
+    (1) variables -> KEYWORD IDENTIFIER ASSIGN STRING . SEMICOLON
+
+    SEMICOLON       shift and go to state 8
+
+
+state 7
+
+    (2) variables -> KEYWORD IDENTIFIER ASSIGN NUMBER . SEMICOLON
+
+    SEMICOLON       shift and go to state 9
+
+
+state 8
+
+    (1) variables -> KEYWORD IDENTIFIER ASSIGN STRING SEMICOLON .
+
+    $end            reduce using rule 1 (variables -> KEYWORD IDENTIFIER ASSIGN STRING SEMICOLON .)
+
+
+state 9
+
+    (2) variables -> KEYWORD IDENTIFIER ASSIGN NUMBER SEMICOLON .
+
+    $end            reduce using rule 2 (variables -> KEYWORD IDENTIFIER ASSIGN NUMBER SEMICOLON .)
+
